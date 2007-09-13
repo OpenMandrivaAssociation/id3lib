@@ -1,6 +1,6 @@
 %define name    id3lib
 %define version 3.8.3
-%define release %mkrel 10
+%define release %mkrel 11
 
 %define major 3.8_3
 %define libname %mklibname id3_ %{major}
@@ -13,6 +13,7 @@ Summary:	A software library for manipulating ID3v1 and ID3v2 tags
 Source:         http://download.sourceforge.net/id3lib/%{name}-%version.tar.bz2
 Patch:		id3lib-3.8.2-doxygen.patch
 Patch1:		patch_id3lib_3.8.3_UTF16_writing_bug.diff
+Patch2:		id3lib-3.8.3-CVE-2007-4460.patch
 URL:		http://id3lib.sourceforge.net
 Group:		Sound
 BuildRoot:	%{_tmppath}/%{name}-buildroot
@@ -71,6 +72,7 @@ rm -rf $RPM_BUILD_ROOT
 %setup -q
 %patch
 %patch1 -p1
+%patch2 -p1
 (mkdir -p doc/examples
 cd examples
 cp *.cpp *.c *.h *.tag *.jpg *.mp3 ../doc/examples
