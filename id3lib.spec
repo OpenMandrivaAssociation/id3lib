@@ -16,7 +16,6 @@ Patch1:		patch_id3lib_3.8.3_UTF16_writing_bug.diff
 Patch2:		id3lib-3.8.3-CVE-2007-4460.patch
 URL:		http://id3lib.sourceforge.net
 Group:		Sound
-BuildRoot:	%{_tmppath}/%{name}-buildroot
 License:	LGPL
 Obsoletes:      id3lib-examples
 Provides:	id3lib-examples
