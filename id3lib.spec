@@ -98,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root, root)
-%doc AUTHORS ChangeLog HISTORY NEWS README THANKS TODO
+%doc AUTHORS HISTORY NEWS README THANKS TODO
 %{_bindir}/*
 
 %files -n %{libname}
@@ -108,7 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{libname}-devel
 %defattr(-, root, root)
-%doc doc/*.html doc/*gif doc/*.txt doc/*.jpg doc/*.ico doc/*.css
+%doc ChangeLog doc/*.html doc/*gif doc/*.txt doc/*.jpg doc/*.ico doc/*.css
 %doc doc/api doc/examples
 %{_includedir}/id3*.h
 %{_includedir}/id3
