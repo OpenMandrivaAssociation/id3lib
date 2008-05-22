@@ -1,6 +1,6 @@
 %define name    id3lib
 %define version 3.8.3
-%define release %mkrel 13
+%define release %mkrel 14
 
 %define major 3.8_3
 %define libname %mklibname id3_ %{major}
@@ -14,6 +14,7 @@ Source:         http://download.sourceforge.net/id3lib/%{name}-%version.tar.bz2
 Patch:		id3lib-3.8.2-doxygen.patch
 Patch1:		patch_id3lib_3.8.3_UTF16_writing_bug.diff
 Patch2:		id3lib-3.8.3-CVE-2007-4460.patch
+Patch3:		id3lib-3.8.3-includes.patch
 URL:		http://id3lib.sourceforge.net
 Group:		Sound
 BuildRoot:	%{_tmppath}/%{name}-buildroot
@@ -73,6 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 %patch
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 (mkdir -p doc/examples
 cd examples
 cp *.cpp *.c *.h *.tag *.jpg *.mp3 ../doc/examples
@@ -80,7 +82,7 @@ cp *.cpp *.c *.h *.tag *.jpg *.mp3 ../doc/examples
 
 %build
 %configure2_5x
-%make
+%make libid3_la_LIBADD="-lstdc++ -lz"
 %make docs
 
 %install
