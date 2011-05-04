@@ -1,6 +1,6 @@
 %define name    id3lib
 %define version 3.8.3
-%define release %mkrel 18
+%define release %mkrel 19
 
 %define major 3.8_3
 %define libname %mklibname id3_ %{major}
