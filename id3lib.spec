@@ -16,6 +16,7 @@ Patch1:		patch_id3lib_3.8.3_UTF16_writing_bug.diff
 Patch2:		id3lib-3.8.3-CVE-2007-4460.patch
 Patch3:		id3lib-3.8.3-includes.patch
 Patch4:		id3lib-3.8.3-link.patch
+Patch5:		id3lib-3.8.3-libtool-autofoo.patch
 URL:		http://id3lib.sourceforge.net
 Group:		Sound
 BuildRoot:	%{_tmppath}/%{name}-buildroot
@@ -74,17 +75,14 @@ tag manipulation.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p0
+#%patch4 -p0
+%patch5 -p1
 (mkdir -p doc/examples
 cd examples
 cp *.cpp *.c *.h *.tag *.jpg *.mp3 ../doc/examples
 )
 
 %build
-libtoolize -f
-aclocal
-autoconf -f
-automake -f
 %configure2_5x
 %make
 %make docs
