@@ -68,10 +68,8 @@ applications which will use id3lib, the software library for ID3v1 and ID3v2
 tag manipulation.
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
 %setup -q
-%patch
+%patch -p0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -87,9 +85,7 @@ cp *.cpp *.c *.h *.tag *.jpg *.mp3 ../doc/examples
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-
-%makeinstall
+%makeinstall_std
 
 %clean
 rm -rf $RPM_BUILD_ROOT
