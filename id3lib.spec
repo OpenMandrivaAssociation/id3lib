@@ -1,9 +1,11 @@
 %define name    id3lib
 %define version 3.8.3
-%define release %mkrel 19
+%define release %mkrel 20
 
 %define major 3.8_3
 %define libname %mklibname id3_ %{major}
+%define devname %mklibname id3 -d
+%define staticname %mklibname id3 -s -d
 
 Name:		%{name}
 Version:	%{version}
@@ -42,16 +44,17 @@ Group: System/Libraries
 %description -n %{libname}
 This package provides a software library for manipulating ID3v1 and ID3v2 tags.
 
-%package -n %{libname}-static-devel
+%package -n %{staticname}
 Summary: Id3lib static libraries
-Requires:       %{libname} = %{epoch}:%{version}-%release
+Requires:       %{devname} = %{epoch}:%{version}-%release
 Group: Development/C++
+Obsoletes:	%{mklibname id3_ 3.8_3 -sd}
 
-%description -n %{libname}-static-devel
+%description -n %{staticname}
 This package provides a software library for manipulating ID3v1 and
 ID3v2 tags. It contains the static library of id3lib.
 
-%package	-n %{libname}-devel
+%package	-n %{devname}
 Summary:	Headers for developing programs that will use id3lib
 Group:		Development/C++
 Requires:       %{libname} = %{epoch}:%{version}-%release
@@ -63,8 +66,9 @@ Provides:	id3lib-devel = %{epoch}:%version-%release
 #for rpmlint
 Provides:	libid3lib3.8-devel = %{epoch}:%version-%release
 Provides:	libid3_3.8-devel = %{epoch}:%version-%release
+Obsoletes:	%{mklibname id3_ 3.8_3 -d}
 
-%description	-n %{libname}-devel
+%description	-n %{devname}
 This package contains the headers that programmers will need to develop
 applications which will use id3lib, the software library for ID3v1 and ID3v2
 tag manipulation.
@@ -75,7 +79,7 @@ tag manipulation.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-#%patch4 -p0
+#%%patch4 -p0
 %patch5 -p1
 (mkdir -p doc/examples
 cd examples
@@ -112,7 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README COPYING
 %{_libdir}/*.so.*
 
-%files -n %{libname}-devel
+%files -n %{devname}
 %defattr(-, root, root)
 %doc ChangeLog doc/*.html doc/*gif doc/*.txt doc/*.jpg doc/*.ico doc/*.css
 %doc doc/api doc/examples
@@ -121,7 +125,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.la
 %{_libdir}/*.so
 
-%files -n %{libname}-static-devel
+%files -n %{staticname}
 %defattr(-, root, root)
 %{_libdir}/*.a
 
