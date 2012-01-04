@@ -1,6 +1,6 @@
 %define name    id3lib
 %define version 3.8.3
-%define release %mkrel 20
+%define release %mkrel 21
 
 %define major 3.8_3
 %define libname %mklibname id3_ %{major}
@@ -122,7 +122,6 @@ rm -rf %{buildroot}
 %doc doc/api doc/examples
 %{_includedir}/id3*.h
 %{_includedir}/id3
-%{_libdir}/*.la
 %{_libdir}/*.so
 
 %files -n %{staticname}
