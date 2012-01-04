@@ -95,16 +95,10 @@ cp *.cpp *.c *.h *.tag *.jpg *.mp3 ../doc/examples
 rm -rf %{buildroot}
 %makeinstall_std
 
+rm -f %buildroot%_libdir/*.la
+
 %clean
 rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
 
 %files
 %defattr(-, root, root)
