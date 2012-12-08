@@ -1,31 +1,25 @@
-%define name    id3lib
-%define version 3.8.3
-%define release %mkrel 21
-
 %define major 3.8_3
 %define libname %mklibname id3_ %{major}
 %define devname %mklibname id3 -d
 %define staticname %mklibname id3 -s -d
 
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		id3lib
+Version:	3.8.3
+Release:	23
 Epoch:		1
 Summary:	A software library for manipulating ID3v1 and ID3v2 tags
-Source:         http://download.sourceforge.net/id3lib/%{name}-%version.tar.bz2
+Group:		Sound
+License:	LGPL
+URL:		http://id3lib.sourceforge.net
+Source:		http://download.sourceforge.net/id3lib/%{name}-%version.tar.bz2
 Patch:		id3lib-3.8.2-doxygen.patch
 Patch1:		patch_id3lib_3.8.3_UTF16_writing_bug.diff
 Patch2:		id3lib-3.8.3-CVE-2007-4460.patch
 Patch3:		id3lib-3.8.3-includes.patch
 Patch4:		id3lib-3.8.3-link.patch
 Patch5:		id3lib-3.8.3-libtool-autofoo.patch
-URL:		http://id3lib.sourceforge.net
-Group:		Sound
-BuildRoot:	%{_tmppath}/%{name}-buildroot
-License:	LGPL
-Obsoletes:      id3lib-examples
 Provides:	id3lib-examples
-BuildRequires:  doxygen
+BuildRequires:	doxygen
 BuildRequires:	zlib-devel
 
 %description
@@ -38,40 +32,36 @@ padding facilities.
 Included are some simple command line example applications.
 
 %package -n %{libname}
-Summary: Id3lib libraries
-Group: System/Libraries
+Summary:	Id3lib libraries
+Group:		System/Libraries
 
 %description -n %{libname}
 This package provides a software library for manipulating ID3v1 and ID3v2 tags.
 
-%package -n %{staticname}
-Summary: Id3lib static libraries
-Requires:       %{devname} = %{epoch}:%{version}-%release
-Group: Development/C++
-Obsoletes:	%{mklibname id3_ 3.8_3 -sd}
-
-%description -n %{staticname}
-This package provides a software library for manipulating ID3v1 and
-ID3v2 tags. It contains the static library of id3lib.
-
 %package	-n %{devname}
 Summary:	Headers for developing programs that will use id3lib
 Group:		Development/C++
-Requires:       %{libname} = %{epoch}:%{version}-%release
+Requires:	%{libname} = %{EVRD}
 Requires:	zlib-devel
-Obsoletes:      id3lib-doc
-Provides:	libid3-devel = %{epoch}:%version-%release
-Provides:	libid3lib-devel = %{epoch}:%version-%release , id3lib-doc
-Provides:	id3lib-devel = %{epoch}:%version-%release
-#for rpmlint
-Provides:	libid3lib3.8-devel = %{epoch}:%version-%release
-Provides:	libid3_3.8-devel = %{epoch}:%version-%release
-Obsoletes:	%{mklibname id3_ 3.8_3 -d}
+Provides:	libid3-devel = %{EVRD}
+Provides:	libid3lib-devel = %{EVRD}
+Provides:	id3lib-devel = %{EVRD}
+Provides:	id3lib-doc
 
 %description	-n %{devname}
 This package contains the headers that programmers will need to develop
 applications which will use id3lib, the software library for ID3v1 and ID3v2
 tag manipulation.
+
+%package -n %{staticname}
+Summary:	Id3lib static libraries
+Group:		Development/C++
+Requires:	%{devname} = %{EVRD}
+
+%description -n %{staticname}
+This package provides a software library for manipulating ID3v1 and
+ID3v2 tags. It contains the static library of id3lib.
+
 
 %prep
 %setup -q
@@ -92,26 +82,17 @@ cp *.cpp *.c *.h *.tag *.jpg *.mp3 ../doc/examples
 %make docs
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
-rm -f %buildroot%_libdir/*.la
-
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-, root, root)
 %doc AUTHORS HISTORY NEWS README THANKS TODO
 %{_bindir}/*
 
 %files -n %{libname}
-%defattr(-, root, root)
 %doc README COPYING
 %{_libdir}/*.so.*
 
 %files -n %{devname}
-%defattr(-, root, root)
 %doc ChangeLog doc/*.html doc/*gif doc/*.txt doc/*.jpg doc/*.ico doc/*.css
 %doc doc/api doc/examples
 %{_includedir}/id3*.h
@@ -119,7 +100,87 @@ rm -rf %{buildroot}
 %{_libdir}/*.so
 
 %files -n %{staticname}
-%defattr(-, root, root)
 %{_libdir}/*.a
 
+%changelog
+* Tue Jun 28 2011 Matthew Dawkins <mattydaw@mandriva.org> 1:3.8.3-20mdv2011.0
++ Revision: 687776
+- removed major from devel and static pkgs
+- properly commented out p4
+
+* Mon May 09 2011 Funda Wang <fwang@mandriva.org> 1:3.8.3-19
++ Revision: 672979
+- add hug fedora patch to have it build
+- fix linkage
+- fix patch apply
+
+  + Oden Eriksson <oeriksson@mandriva.com>
+    - mass rebuild
+
+* Fri Dec 03 2010 Oden Eriksson <oeriksson@mandriva.com> 1:3.8.3-18mdv2011.0
++ Revision: 605972
+- rebuild
+
+* Tue Mar 16 2010 Oden Eriksson <oeriksson@mandriva.com> 1:3.8.3-17mdv2010.1
++ Revision: 521146
+- rebuilt for 2010.1
+
+* Wed Sep 02 2009 Christophe Fergeau <cfergeau@mandriva.com> 1:3.8.3-16mdv2010.0
++ Revision: 425329
+- rebuild
+
+* Wed Aug 06 2008 Thierry Vignaud <tv@mandriva.org> 1:3.8.3-15mdv2009.0
++ Revision: 264681
+- rebuild early 2009.0 package (before pixel changes)
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+* Thu May 22 2008 GÃ¶tz Waschk <waschk@mandriva.org> 1:3.8.3-14mdv2009.0
++ Revision: 210031
+- fixes for gcc 4.3
+
+* Sun Jan 13 2008 Thierry Vignaud <tv@mandriva.org> 1:3.8.3-13mdv2008.1
++ Revision: 150283
+- rebuild
+
+* Fri Jan 11 2008 Thierry Vignaud <tv@mandriva.org> 1:3.8.3-12mdv2008.1
++ Revision: 148489
+- rebuild
+- do not package big ChangeLog
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Thu Sep 13 2007 Nicolas LÃ©cureuil <nlecureuil@mandriva.com> 1:3.8.3-11mdv2008.0
++ Revision: 85257
+- Add patch2 to fix CVE-2007-4460 (Bug #33524)
+
+
+* Fri Jan 12 2007 GÃ¶tz Waschk <waschk@mandriva.org> 3.8.3-10mdv2007.0
++ Revision: 108133
+- Import id3lib
+
+* Fri Jan 12 2007 Götz Waschk <waschk@mandriva.org> 3.8.3-10mdv2007.1
+- unpack patches
+
+* Sun Feb 19 2006 Götz Waschk <waschk@mandriva.org> 3.8.3-10mdk
+- patch to fix UTF-16 writing
+
+* Sat Dec 31 2005 Mandriva Linux Team <http://www.mandrivaexpert.com/> 3.8.3-9mdk
+- Rebuild
+
+* Tue Jun 07 2005 Nicolas Lécureuil <neoclust@mandriva.org> 3.8.3-8mdk
+- Rebuild
+- Make rpmlint Happier
+
+* Fri Jun 04 2004 Laurent Montel <lmontel@mandrakesoft.com> 3.8.3-7mdk
+- Rebuild
+
+* Mon Feb 02 2004 Götz Waschk <waschk@linux-mandrake.com> 3.8.3-6mdk
+- provide id3lib-devel as well
+
+* Mon Jan 19 2004 Olivier Blin <blino@mandrake.org> 3.8.3-5mdk
+- add Epoch to Requires/Provides
 
