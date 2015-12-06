@@ -3,6 +3,8 @@
 %define libname %mklibname id3_ %{api} %{major}
 %define devname %mklibname id3 -d
 
+%define _disable_lto 1
+
 Summary:	A software library for manipulating ID3v1 and ID3v2 tags
 Name:		id3lib
 Epoch:		1
