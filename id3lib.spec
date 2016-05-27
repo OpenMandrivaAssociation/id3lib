@@ -1,5 +1,5 @@
-%define api	3.8
-%define major	3
+%define api 3.8
+%define major 3
 %define libname %mklibname id3_ %{api} %{major}
 %define devname %mklibname id3 -d
 
@@ -9,7 +9,7 @@ Summary:	A software library for manipulating ID3v1 and ID3v2 tags
 Name:		id3lib
 Epoch:		1
 Version:	3.8.3
-Release:	33
+Release:	34
 Group:		Sound
 License:	LGPLv2
 Url:		http://id3lib.sourceforge.net
@@ -40,14 +40,14 @@ Group:		System/Libraries
 %description -n %{libname}
 This package provides a software library for manipulating ID3v1 and ID3v2 tags.
 
-%package	-n %{devname}
+%package -n %{devname}
 Summary:	Headers for developing programs that will use id3lib
 Group:		Development/C++
 Requires:	%{libname} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 Obsoletes:	%{_lib}id3-static-devel < 1:3.8.3-24
 
-%description	-n %{devname}
+%description -n %{devname}
 This package contains the headers that programmers will need to develop
 applications which will use id3lib, the software library for ID3v1 and ID3v2
 tag manipulation.
@@ -62,7 +62,7 @@ cp *.cpp *.c *.h *.tag *.jpg *.mp3 ../doc/examples
 )
 
 %build
-%configure2_5x \
+%configure \
 	--disable-static
 %make
 %make docs
@@ -84,4 +84,3 @@ cp *.cpp *.c *.h *.tag *.jpg *.mp3 ../doc/examples
 %{_includedir}/id3*.h
 %{_includedir}/id3
 %{_libdir}/*.so
-
