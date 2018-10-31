@@ -9,7 +9,7 @@ Summary:	A software library for manipulating ID3v1 and ID3v2 tags
 Name:		id3lib
 Epoch:		1
 Version:	3.8.3
-Release:	35
+Release:	36
 Group:		Sound
 License:	LGPLv2
 Url:		http://id3lib.sourceforge.net
