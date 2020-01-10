@@ -54,7 +54,7 @@ tag manipulation.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 #%%patch4 -p0
 (mkdir -p doc/examples
 cd examples
