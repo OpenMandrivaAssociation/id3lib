@@ -12,7 +12,7 @@ Version:	3.8.3
 Release:	37
 Group:		Sound
 License:	LGPLv2
-Url:		http://id3lib.sourceforge.net
+Url:		https://id3lib.sourceforge.net
 Source0:	http://download.sourceforge.net/id3lib/%{name}-%version.tar.gz
 Patch0:		id3lib-3.8.2-doxygen.patch
 Patch1:		patch_id3lib_3.8.3_UTF16_writing_bug.diff
