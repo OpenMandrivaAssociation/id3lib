@@ -20,6 +20,11 @@ Patch2:		id3lib-3.8.3-CVE-2007-4460.patch
 Patch3:		id3lib-3.8.3-includes.patch
 #Patch4:		id3lib-3.8.3-link.patch
 Patch5:		id3lib-3.8.3-libtool-autofoo.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	doxygen
 BuildRequires:	pkgconfig(zlib)
 Provides:	id3lib-examples
